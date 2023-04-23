@@ -1,16 +1,38 @@
-apply plugin: 'java'
+plugins {
+	id 'java'
+	id 'jacoco'
+}
+
+jacoco {
+	toolVersion = "0.8.8"
+}
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
-
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
 }
 
 test {
     useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	dependsOn test
+//	sourceSets {
+//		main {
+//			java {
+//				exclude 'Main.java'
+//			}
+//		}
+//	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: '**/Main.class')
+		}))
+	}
 }
 

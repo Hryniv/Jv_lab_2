@@ -24,7 +24,7 @@ public class MutableMatrix implements Matrix {
 
     MutableMatrix(BigDecimal[][] array) {
         if (array == null) {
-            throw new MatrixException("Can't copy null matrix");
+            throw new NullPointerException("Can't copy null matrix");
         }
         this.numOfRows = array.length == 0 || array[0].length == 0 ? 0 : array.length;
         this.numOfCols = numOfRows == 0 ? 0 : array[0].length;
@@ -73,7 +73,7 @@ public class MutableMatrix implements Matrix {
     @Override
     public void setElement(int row, int col, BigDecimal element) {
         if (element == null) {
-            throw new MatrixException("Element can not be null");
+            throw new NullPointerException("Element can not be null");
         }
         if (isEmpty()) {
             throw new RuntimeException("Can't set element in empty matrix");
@@ -105,7 +105,7 @@ public class MutableMatrix implements Matrix {
     @Override
     public void setRow(int index, BigDecimal[] row) {
         if (row == null) {
-            throw new MatrixException("Inputted row can not be null");
+            throw new NullPointerException("Inputted row can not be null");
         }
         if (isEmpty()) {
             throw new RuntimeException("Can't set row in empty matrix");
@@ -138,7 +138,7 @@ public class MutableMatrix implements Matrix {
     @Override
     public void setColumn(int colIndex, BigDecimal[] column) {
         if (column == null) {
-            throw new MatrixException("Column can not be null");
+            throw new NullPointerException("Column can not be null");
         }
         if (isEmpty()) {
             throw new RuntimeException("Can't set column in empty matrix");
@@ -239,7 +239,7 @@ public class MutableMatrix implements Matrix {
     @Override
     public Matrix multiplication(Matrix matrix) {
         if (matrix == null) {
-            throw new MatrixException("Can't multiply null matrix");
+            throw new NullPointerException("Can't multiply null matrix");
         }
 
         if (isEmpty() || matrix.isEmpty()) {
@@ -280,7 +280,7 @@ public class MutableMatrix implements Matrix {
                 builder.append(array[i][j]).append("  ");
             }
         }
-        return builder.substring(1).toString();
+        return builder.substring(1);
     }
 }
 
